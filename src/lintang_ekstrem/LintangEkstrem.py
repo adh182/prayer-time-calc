@@ -1,5 +1,5 @@
 import numpy as np 
-from WaktuSholat import WaktuSholat
+from .waktu_shalat import WaktuShalat
 from datetime import date
 
 class LintangEkstrem:  
