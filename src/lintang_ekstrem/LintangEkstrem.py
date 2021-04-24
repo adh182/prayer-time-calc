@@ -1,5 +1,8 @@
 import numpy as np 
-from waktu_shalat import WaktuShalat
+import sys
+import os
+sys.path.append(os.path.dirname(os.getcwd())+'/waktu_shalat')
+import WaktuShalat
 from datetime import date
 
 class LintangEkstrem:  
