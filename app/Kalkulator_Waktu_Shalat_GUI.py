@@ -7,14 +7,12 @@ from tkcalendar import Calendar, DateEntry
 import calendar, datetime 
 from time import strftime
 import numpy as np
-# from WaktuSholat import WaktuSholat 
 from tkinter import scrolledtext, Scrollbar
 import sys
 import os
-# from LintangEkstrem import LintangEkstrem 
 sys.path.append(os.path.dirname(os.getcwd())+'/src/waktu_shalat')
 sys.path.append(os.path.dirname(os.getcwd())+'/src/lintang_ekstrem')
-import WaktuShalat
+from WaktuShalat import WaktuSholat
 import LintangEkstrem
 
 class Window:
@@ -126,7 +124,7 @@ class Window:
 	def dataset(self):
 		'''Memuat dataset yang digunakan pada perhitungan waktu sholat'''
 
-		dataset = pd.read_csv('KOTA_DATABASE_COMPLETE.csv', sep=';')
+		dataset = pd.read_csv(os.path.dirname(os.getcwd())+'/data/KOTA_DATABASE_COMPLETE.csv', sep=';')
 		negara = dataset.Country
 		negara = negara.drop_duplicates()
 
@@ -476,6 +474,6 @@ app = Window(root)
 root.geometry('950x650')
 root.resizable(0,0)
 root.wm_attributes("-transparentcolor", 'grey')
-icon_photo = PhotoImage(file='cal_logo.ico')
+icon_photo = PhotoImage(file=os.path.dirname(os.getcwd())+'/data/cal_logo.ico')
 root.iconphoto(False, icon_photo)
 root.mainloop()
