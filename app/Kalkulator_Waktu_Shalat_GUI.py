@@ -13,7 +13,7 @@ import os
 sys.path.append(os.path.dirname(os.getcwd())+'/src/waktu_shalat')
 sys.path.append(os.path.dirname(os.getcwd())+'/src/lintang_ekstrem')
 from WaktuShalat import WaktuSholat
-import LintangEkstrem
+from LintangEkstrem import LintangEkstrem
 
 class Window:
 
