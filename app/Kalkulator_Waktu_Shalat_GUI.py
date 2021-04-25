@@ -7,10 +7,15 @@ from tkcalendar import Calendar, DateEntry
 import calendar, datetime 
 from time import strftime
 import numpy as np
-from WaktuSholat import WaktuSholat
+# from WaktuSholat import WaktuSholat 
 from tkinter import scrolledtext, Scrollbar
-from LintangEkstrem import LintangEkstrem  
-
+import sys
+import os
+# from LintangEkstrem import LintangEkstrem 
+sys.path.append(os.path.dirname(os.getcwd())+'/src/waktu_shalat')
+sys.path.append(os.path.dirname(os.getcwd())+'/src/lintang_ekstrem')
+import WaktuShalat
+import LintangEkstrem
 
 class Window:
 
