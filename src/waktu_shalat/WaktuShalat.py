@@ -37,7 +37,7 @@ class WaktuSholat:
 		return T, JD
 
 	def deklinasi_matahari(self):
-		'''Menghitung deklinasi mataharu (delta)'''
+		'''Menghitung deklinasi matahari (delta)'''
 
 		T, JD = self.sudut_tanggal()
 		delta = (0.37877 + 23.264*np.sin(np.deg2rad(57.297*T - 79.547)) + 
