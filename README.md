@@ -20,7 +20,7 @@
 * Extreme Latitude
   - Calculate the prayer time in extreme latitude (> 45 degree)
 * Save
-  - Save the prayer schedule in .txt format
+  - Save the prayer schedule in .txt and .pdf format
   
 ## Download
 You can [download](https://github.com/adh182/prayer-time-calc/blob/master/app/Kalkulator_Waktu_Shalat.exe?raw=true) the latest installable version of this application. Once downloaded, open the application (it might take minutes to open the application for the first time).
