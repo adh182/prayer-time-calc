@@ -8,6 +8,7 @@ import calendar, datetime
 from time import strftime
 import numpy as np
 from tkinter import scrolledtext, Scrollbar
+from fpdf import FPDF
 import sys
 import os
 sys.path.append(os.path.dirname(os.getcwd())+'/src/waktu_shalat')
@@ -70,7 +71,7 @@ class Window:
 	def show_credit(self):
 		'''Menampilkan credit pada bagian bawah window'''
 
-		self.lbl_version = Label(self.master, text='Program Kalkulator Waktu Shalat Version 1.5 - ', font=self.fontstyle, fg='black')
+		self.lbl_version = Label(self.master, text='Program Kalkulator Waktu Shalat Version 1.6 - ', font=self.fontstyle, fg='black')
 		self.lbl_credit = Label(self.master, text='Created by Adh : i_alimurrijal@student.ub.ac.id', font=self.fontstyle, fg='black')
 		self.lbl_version.place(x=20, y=620)
 		self.lbl_credit.place(x=315, y=620)
@@ -111,12 +112,12 @@ class Window:
 		about.title('About')
 		about.geometry('300x115')
 		about.resizable(0,0)
-		icon_photo = PhotoImage(file='cal_logo.ico')
+		icon_photo = PhotoImage(file='../data/cal_logo.ico')
 		about.iconphoto(False, icon_photo)
 
 		title = Label(master=about, text="KALKULATOR WAKTU\nSHALAT", font=self.fontstyle3, justify='center', fg='green')
 		email = Label(master=about, text="Adh : i_alimurrijal@student.ub.ac.id", font=self.fontstyle, justify='center')
-		version = Label(master=about, text="Version 1.5 - @2020", font=self.fontstyle, justify='center')
+		version = Label(master=about, text="Version 1.6 - @2021", font=self.fontstyle, justify='center')
 		title.pack()
 		email.pack()
 		version.pack()
@@ -452,22 +453,45 @@ class Window:
 	def save_file(self):
 		'''Command untuk menyimpan file dalam format .txt'''
 
-		files = [('Text Document', '*.txt')]
-		file = asksaveasfile(mode='w', filetypes=files, defaultextension=files)
+		filetypes = [('Text Document', '*.txt'), ('PDF', '*.pdf')]
+		file = asksaveasfile(mode='w', filetypes=filetypes, defaultextension='.*')
 
-		if file is None:  #Jika user menekan cancel
-			return
 
 		file_to_save3 = "  TANGGAL           \tSUBUH         \t\tTERBIT           \tZUHUR        \t\t ASHAR           \t  MAGHRIB        \t  ISYA\n"
 		file_to_save4 = "------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
-		file.write(self.file_to_save1)
-		file.write(self.file_to_save2)
-		file.write(file_to_save4)
-		file.write(file_to_save3)
-		file.write(file_to_save4)
-		file.write(self.scr_jadwal.get("1.0", 'end'))
-		file.close()
+		
+		if file is None:  #Jika user menekan cancel
+			return
 
+		elif ".txt" in file.name:
+			file.write(self.file_to_save1)
+			file.write(self.file_to_save2)
+			file.write(file_to_save4)
+			file.write(file_to_save3)
+			file.write(file_to_save4)
+			file.write(self.scr_jadwal.get("1.0", 'end'))
+			print("Saving file as txt")
+			file.close()
+
+		elif ".pdf" in file.name:
+			pdf = FPDF()
+			pdf.add_page()
+			pdf.set_font('Arial', style='B')
+			pdf.set_margins(0, 1)
+
+			pdf.cell(200, 10, txt=self.file_to_save1, ln=1, align='C')
+			pdf.cell(200, 10, txt=self.file_to_save2, ln=1, align='C')
+			pdf.set_font('Arial')
+			pdf.cell(200, 10, txt=file_to_save4, ln=1, align='left')
+			pdf.cell(200, 10, txt=file_to_save3, ln=1, align='left')
+			pdf.cell(200, 10, txt=file_to_save4, ln=1, align='left')
+			for line in self.scr_jadwal.get("1.0", 'end').splitlines():
+				pdf.cell(200, 10, txt=line, ln=1, align='left')
+
+			file.close()
+			os.remove(file.name)
+			print("Saving file as pdf")
+			pdf.output(file.name)
 
 root = Tk()
 app = Window(root)
